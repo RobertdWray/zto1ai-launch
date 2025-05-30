@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Production
+build/
+
+# Misc
+.DS_Store
+
+# Retired content
+Retired and reference/
+
+# Docs
+docs/
+
+# ADB content
+ADB/ 

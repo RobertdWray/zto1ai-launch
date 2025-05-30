@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+/* Custom fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Tailwind CSS v4 Theme Configuration */
+@theme {
+  /* Custom Colors */
+  --color-zto1-blue: #003366;
+  --color-zto1-blue-light: #33658A;
+  --color-zto1-blue-dark: #002244;
+  --color-zto1-orange: #FF6B35;
+  --color-zto1-orange-light: #FF8C5A;
+  --color-zto1-orange-dark: #E5522C;
+  
+  /* Font */
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* CSS Variables for theme */
+@layer base {
+  :root {
+    /* Colors (for CSS usage) */
+    --zto1-blue: 0 33 102;
+    --zto1-blue-light: 51 101 138;
+    --zto1-blue-dark: 0 34 68;
+    --zto1-orange: 255 107 53;
+    --zto1-orange-light: 255 140 90;
+    --zto1-orange-dark: 229 82 44;
+    
+    /* Spacing */
+    --header-height: 4rem;
+    
+    /* Animation */
+    --animation-duration: 0.3s;
+  }
+  
+  body {
+    @apply bg-white text-gray-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Focus styles - using standard blue for now */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-blue-600 ring-offset-2;
+  }
+}
+
+/* Utility classes */
+@layer utilities {
+  /* Text gradient */
+  .text-gradient {
+    @apply bg-gradient-to-r from-blue-900 to-blue-700 bg-clip-text text-transparent;
+  }
+  
+  /* Glass effect */
+  .glass {
+    @apply bg-white/80 backdrop-blur-sm;
+  }
+  
+  /* Section padding */
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Container */
+  .container-custom {
+    @apply mx-auto max-w-7xl;
+  }
+}
+
+/* Animations */
+@layer components {
+  /* Hover lift effect */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:-translate-y-1;
+  }
+  
+  /* Card hover effect */
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-lg;
+  }
+  
+  /* Button base */
+  .btn-base {
+    @apply inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50;
+  }
+} 

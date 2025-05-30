@@ -1,0 +1,67 @@
+# Patient Simulation System Flow Diagram
+
+## Non-Technical User Experience Flow
+
+```mermaid
+flowchart TD
+    A[Doctor logs into system] --> B[Select patient scenario]
+    B --> C[Review patient briefing materials]
+    C --> D[Start voice simulation]
+    
+    D --> E[AI Patient speaks first message]
+    E --> F[Doctor responds via microphone]
+    F --> G[AI Patient responds naturally]
+    G --> H{Conversation continues}
+    
+    H -->|Doctor continues| F
+    H -->|Session ends naturally| I[Session complete]
+    H -->|30 minute limit reached| I
+    
+    I --> J[AI generates transcript]
+    J --> K[AI analyzes conversation using scoring rubric]
+    K --> L[AI creates feedback report]
+    L --> M[Doctor receives immediate results]
+    M --> N[Email report sent to doctor and admin]
+    
+    O[Administrator Dashboard] --> P[View all session results]
+    O --> Q[Manage users]
+    O --> R[Configure AI scoring models]
+    O --> S[Monitor usage metrics]
+    
+    T[Patient Scenario Components] --> U[Medical history & personality]
+    T --> V[Comprehensive knowledge base]
+    T --> W[Behavioral patterns & responses]
+    
+    style A fill:#e1f5fe
+    style D fill:#f3e5f5
+    style I fill:#e8f5e8
+    style M fill:#fff3e0
+    style O fill:#fce4ec
+```
+
+## System Components Explanation
+
+### For Someone New to This Project:
+
+**What This System Does:**
+This is a training platform where doctors practice difficult patient conversations through realistic voice interactions with AI-simulated patients.
+
+**The Flow:**
+1. **Login & Setup**: Doctor logs in and chooses which challenging patient they want to practice with
+2. **Preparation**: System provides background information about the patient's condition and personality
+3. **Voice Conversation**: Doctor has a natural spoken conversation with an AI patient that behaves realistically
+4. **Automatic Analysis**: AI listens to the entire conversation and evaluates the doctor's performance
+5. **Instant Feedback**: Doctor immediately receives a detailed report on their bedside manner and suggestions for improvement
+6. **Administrative Oversight**: Administrators can monitor all training sessions and manage the system
+
+**Key Benefits:**
+- Doctors can practice with difficult patients safely
+- Immediate feedback helps improve patient interaction skills
+- No real patients are involved - completely simulated
+- Available 24/7 for convenient training
+- Tracks progress and provides measurable improvement data
+
+**Two Patient Types Available:**
+- Each patient has a complete medical history, personality, and realistic behavioral patterns
+- Patients respond naturally based on their programmed knowledge and experiences
+- Conversations feel authentic and challenging, just like real difficult patient encounters 
