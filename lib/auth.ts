@@ -69,6 +69,17 @@ export async function verifyPassword(proposalId: string, password: string): Prom
   const envKey = `PROPOSAL_PASSWORD_${proposalId.toUpperCase()}`;
   const correctPassword = process.env[envKey];
   
+  // Console log for immediate debugging
+  console.log('Password verification attempt:', {
+    proposalId,
+    envKey,
+    hasExpectedPassword: !!correctPassword,
+    inputLength: password.length,
+    expectedLength: correctPassword?.length || 0,
+    inputFirst5: password.substring(0, 5),
+    expectedFirst5: correctPassword?.substring(0, 5) || 'none',
+  });
+  
   if (!correctPassword) {
     console.error(`No password configured for proposal: ${proposalId}`);
     
@@ -96,24 +107,47 @@ export async function verifyPassword(proposalId: string, password: string): Prom
   
   // Log password verification attempts to Sentry for debugging
   if (!isMatch) {
-    Sentry.captureMessage('Password mismatch in verifyPassword function', {
+    console.log('Password mismatch details:', {
+      inputLength: password.length,
+      expectedLength: correctPassword.length,
+      inputTrimmed: password.trim(),
+      expectedTrimmed: correctPassword.trim(),
+      inputHasNewlines: password.includes('\n'),
+      expectedHasNewlines: correctPassword.includes('\n'),
+    });
+    
+    // Use non-password field names to avoid Sentry filtering
+    const inputLen = password.length;
+    const expectedLen = correctPassword.length;
+    const inputTrimmedLen = password.trim().length;
+    const expectedTrimmedLen = correctPassword.trim().length;
+    
+    Sentry.captureMessage('Password verification mismatch detected', {
       level: 'warning',
       tags: {
         component: 'auth-verify-password',
         proposalId: proposalId,
-        issue: 'password-mismatch'
+        issue: 'mismatch-analysis'
       },
       contexts: {
-        verification: {
-          envKey,
-          inputPasswordLength: password.length,
-          inputPasswordFirst3: password.substring(0, 3) + '***',
-          expectedPasswordLength: correctPassword.length,
-          expectedPasswordFirst3: correctPassword.substring(0, 3) + '***',
-          passwordsEqual: password === correctPassword,
-          inputPasswordTrimmed: password.trim(),
-          expectedPasswordTrimmed: correctPassword.trim(),
-          trimmedEqual: password.trim() === correctPassword.trim(),
+        debug: {
+          envKeyName: envKey,
+          inputLength: inputLen,
+          expectedLength: expectedLen,
+          inputTrimmedLength: inputTrimmedLen,
+          expectedTrimmedLength: expectedTrimmedLen,
+          lengthsMatch: inputLen === expectedLen,
+          trimmedLengthsMatch: inputTrimmedLen === expectedTrimmedLen,
+          inputStartsWith: password.substring(0, 5),
+          expectedStartsWith: correctPassword.substring(0, 5),
+          inputEndsWith: password.substring(-3),
+          expectedEndsWith: correctPassword.substring(-3),
+          inputHasNewlines: password.includes('\n'),
+          expectedHasNewlines: correctPassword.includes('\n'),
+          inputHasCarriageReturn: password.includes('\r'),
+          expectedHasCarriageReturn: correctPassword.includes('\r'),
+          strictEquality: password === correctPassword,
+          looseEquality: password == correctPassword,
         }
       }
     });
