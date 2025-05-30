@@ -106,29 +106,29 @@ export function CoreFeatures() {
         transition={{ delay: 0.5 }}
         className="mt-8"
       >
-        <Card className="bg-gradient-to-r from-orange-50 to-white border-orange-100">
+        <Card className="bg-gradient-to-r from-gray-50 to-white border-gray-200">
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
-              <Mail className="w-6 h-6 text-zto1-orange" />
+              <Mail className="w-6 h-6 text-zto1-blue" />
               Reporting and Communication
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
-                <Mail className="w-4 h-4 text-zto1-orange mt-0.5 flex-shrink-0" />
+                <Mail className="w-4 h-4 text-zto1-blue mt-0.5 flex-shrink-0" />
                 <span className="text-sm text-gray-700">
                   Automated email delivery of session results to participants and administrators
                 </span>
               </li>
               <li className="flex items-start gap-3">
-                <FileText className="w-4 h-4 text-zto1-orange mt-0.5 flex-shrink-0" />
+                <FileText className="w-4 h-4 text-zto1-blue mt-0.5 flex-shrink-0" />
                 <span className="text-sm text-gray-700">
                   Complete conversation records with timestamps
                 </span>
               </li>
               <li className="flex items-start gap-3">
-                <BarChart className="w-4 h-4 text-zto1-orange mt-0.5 flex-shrink-0" />
+                <BarChart className="w-4 h-4 text-zto1-blue mt-0.5 flex-shrink-0" />
                 <span className="text-sm text-gray-700">
                   Basic metrics on completion rates and scores
                 </span>

@@ -144,9 +144,9 @@ export function Pricing() {
       </div>
 
       {/* Optional Features */}
-      <Card className="border-orange-200 bg-orange-50 mb-8">
+      <Card className="border-gray-200 bg-gray-50 mb-8">
         <CardHeader>
-          <CardTitle className="text-orange-900">Optional Features (Additional Cost)</CardTitle>
+          <CardTitle className="text-gray-900">Optional Features (Additional Cost)</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>

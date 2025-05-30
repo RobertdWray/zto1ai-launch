@@ -54,20 +54,20 @@ export function SarahChenDemo() {
     >
       <h2 className="text-3xl font-bold text-zto1-blue mb-6">AI Patient Simulation Demo</h2>
       
-      <Card className="overflow-hidden border-2 border-orange-200">
-        <CardHeader className="bg-gradient-to-r from-orange-50 to-white">
+      <Card className="overflow-hidden border-2 border-gray-200">
+        <CardHeader className="bg-gradient-to-r from-gray-50 to-white">
           <CardTitle className="flex items-center gap-3">
-            <Play className="w-5 h-5 text-orange-600" />
+            <Play className="w-5 h-5 text-zto1-blue" />
             Live Demonstration: Doctor-AI Patient Interaction
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6">
           <div className="mb-6">
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
-              <h4 className="font-semibold text-base mb-2 text-amber-900">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+              <h4 className="font-semibold text-base mb-2 text-zto1-blue">
                 What You&apos;ll Experience
               </h4>
-              <p className="text-sm text-amber-800 mb-3">
+              <p className="text-sm text-gray-700 mb-3">
                 This is a live demonstration of how dermatologists will interact with AI-powered patient simulations 
                 in the training system. You&apos;ll play the role of a doctor speaking with Sarah Chen, 
                 an AI patient with moderate to severe plaque psoriasis.
