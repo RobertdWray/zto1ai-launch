@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { ExecutiveSummary } from './ExecutiveSummary';
 import { SystemOverview } from './SystemOverview';
 import { CoreFeatures } from './CoreFeatures';
@@ -11,6 +12,8 @@ import { SarahChenDemo } from './SarahChenDemo';
 import { Timeline } from './Timeline';
 import { SectionNav } from '@/components/proposal/SectionNav';
 import { ProposalLayout } from '@/components/proposal/ProposalLayout';
+import { FloatingCTA } from '@/components/proposal/FloatingCTA';
+import { CalendarBooking } from '@/components/proposal/CalendarBooking';
 
 const sections = [
   { id: 'summary', title: 'Executive Summary' },
@@ -25,6 +28,21 @@ const sections = [
 
 export default function ADBProposal() {
   const [activeSection, setActiveSection] = useState('summary');
+  const [showCalendarBooking, setShowCalendarBooking] = useState(false);
+  const router = useRouter();
+
+  const handleBookCall = () => {
+    setShowCalendarBooking(true);
+  };
+
+  const handleLaunchProject = () => {
+    // Navigate to contract/agreement page
+    router.push('/proposal/adb/contract');
+  };
+
+  const handleCloseCalendar = () => {
+    setShowCalendarBooking(false);
+  };
 
   return (
     <ProposalLayout
@@ -82,6 +100,19 @@ export default function ADBProposal() {
           </section>
         </div>
       </div>
+
+      {/* Floating Call-to-Action */}
+      <FloatingCTA
+        onBookCall={handleBookCall}
+        onLaunchProject={handleLaunchProject}
+      />
+
+      {/* Calendar Booking Modal */}
+      <CalendarBooking
+        isOpen={showCalendarBooking}
+        onClose={handleCloseCalendar}
+        proposalTitle="AI Patient Simulation System"
+      />
     </ProposalLayout>
   );
 } 

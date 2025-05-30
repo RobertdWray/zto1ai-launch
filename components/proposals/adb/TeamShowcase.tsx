@@ -2,8 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
-import { Linkedin, Globe, Mail } from 'lucide-react';
+import { Linkedin, Globe, Mail, Play } from 'lucide-react';
 import Image from 'next/image';
+import { useState } from 'react';
 
 interface TeamMember {
   name: string;
@@ -17,6 +18,9 @@ interface TeamMember {
 }
 
 export function TeamShowcase() {
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+
   const team: TeamMember[] = [
     {
       name: 'Rob Wray',
@@ -171,6 +175,70 @@ export function TeamShowcase() {
           </button>
         </CardContent>
       </Card>
+
+      {/* Personal Message from Rob */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="mt-8"
+      >
+        <Card className="overflow-hidden">
+          <CardContent className="p-0">
+            <div className="bg-gradient-to-r from-zto1-blue to-zto1-blue-light text-white p-6">
+              <h3 className="text-xl font-semibold mb-2">A Personal Message from Our Founder</h3>
+              <p className="text-blue-100">
+                Rob Wray shares his passion for helping doctors be better doctors
+              </p>
+            </div>
+            
+            {/* Video Container with Clean Frame */}
+            <div className="p-6 bg-gray-50">
+              <div className="max-w-2xl mx-auto">
+                {/* Clean Video Container */}
+                <div className="relative bg-black rounded-lg shadow-lg overflow-hidden">
+                  {!videoLoaded && !videoError && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+                      <div className="text-center">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-zto1-blue mx-auto mb-3"></div>
+                        <p className="text-sm text-gray-600">Loading video...</p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {videoError && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+                      <div className="text-center">
+                        <Play className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+                        <p className="text-sm text-gray-600">
+                          Video is currently unavailable, please try refreshing.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  <video
+                    controls
+                    preload="metadata"
+                    className="w-full aspect-video object-cover"
+                    onLoadedData={() => setVideoLoaded(true)}
+                    onError={() => setVideoError(true)}
+                  >
+                    <source src="/media/adbrob.mp4" type="video/mp4" />
+                    <source src="/media/adbrob.mov" type="video/quicktime" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                
+                {/* Video Caption */}
+                <p className="text-sm text-gray-600 text-center mt-3">
+                  Rob Wray, Co-founder • 25+ years in healthcare innovation
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
     </motion.div>
   );
 } 

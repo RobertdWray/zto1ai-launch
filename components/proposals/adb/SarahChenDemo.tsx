@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Mic, Headphones, Wifi, AlertTriangle, Play, X } from 'lucide-react';
+import { Mic, Headphones, Wifi, AlertTriangle, Play, FileText } from 'lucide-react';
+import { SarahVoiceConversation } from '@/components/voice/SarahVoiceConversation';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -26,32 +27,23 @@ declare global {
 }
 
 export function SarahChenDemo() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [showWarning, setShowWarning] = useState(true);
+  const [showWarning, setShowWarning] = useState(false);
   const [demoStarted, setDemoStarted] = useState(false);
-  
-  useEffect(() => {
-    if (demoStarted) {
-      // Dynamically load ElevenLabs script only after user acknowledges
-      const script = document.createElement('script');
-      script.src = 'https://unpkg.com/@elevenlabs/convai-widget-embed';
-      script.async = true;
-      script.type = 'text/javascript';
-      
-      document.body.appendChild(script);
-      
-      return () => {
-        // Clean up script on unmount
-        if (document.body.contains(script)) {
-          document.body.removeChild(script);
-        }
-      };
-    }
-  }, [demoStarted]);
+  const [conversationTranscript, setConversationTranscript] = useState<string>('');
   
   const handleStartDemo = () => {
     setShowWarning(false);
     setDemoStarted(true);
+  };
+  
+  const handleTranscriptComplete = (transcript: string) => {
+    setConversationTranscript(transcript);
+    console.log('Conversation completed with transcript:', transcript);
+  };
+  
+  const handleConversationEnd = (conversationData: any) => {
+    console.log('Conversation ended:', conversationData);
+    // Here you could send the conversation data to your API for analysis
   };
   
   return (
@@ -123,11 +115,11 @@ export function SarahChenDemo() {
               </div>
             </div>
           ) : (
-            <div 
-              ref={containerRef} 
-              className="relative bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-8 min-h-[400px] flex items-center justify-center"
-            >
-              <elevenlabs-convai agent-id="C0rXFtCec1Xq6qfwnpt8" />
+            <div className="space-y-6">
+              <SarahVoiceConversation 
+                onTranscriptComplete={handleTranscriptComplete}
+                onConversationEnd={handleConversationEnd}
+              />
             </div>
           )}
           
@@ -179,6 +171,28 @@ export function SarahChenDemo() {
                 </p>
               </div>
             </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Conversation Transcript Display */}
+      {conversationTranscript && (
+        <Card className="mt-6">
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <FileText className="w-5 h-5" />
+              Session Transcript
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <pre className="text-sm text-gray-700 whitespace-pre-wrap font-mono">
+                {conversationTranscript}
+              </pre>
+            </div>
+            <p className="text-xs text-gray-500 mt-2">
+              This transcript would typically be analyzed by AI to provide feedback on communication effectiveness.
+            </p>
           </CardContent>
         </Card>
       )}
