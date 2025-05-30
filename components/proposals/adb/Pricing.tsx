@@ -65,6 +65,22 @@ export function Pricing() {
         </CardContent>
       </Card>
 
+      {/* HIPAA Compliance Notice */}
+      <Card className="border-amber-300 bg-amber-50 mb-8">
+        <CardContent className="p-4">
+          <div className="flex items-start gap-3">
+            <Shield className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
+            <div>
+              <h3 className="font-semibold text-amber-900 mb-1">Important: HIPAA Compliance Notice</h3>
+              <p className="text-sm text-amber-800">
+                <strong>NOT HIPAA compliant</strong> - The base system should not be used with actual patient data. 
+                HIPAA compliance is available as an add-on option (see Optional Features below).
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {/* Warranty & Support */}
         <Card>
@@ -133,6 +149,12 @@ export function Pricing() {
           <CardTitle className="text-orange-900">Optional Features (Additional Cost)</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
+          <div>
+            <h4 className="font-semibold text-sm mb-1">HIPAA Compliance Package</h4>
+            <p className="text-sm text-gray-700">
+              Full HIPAA compliance implementation including Business Associate Agreement (BAA), encrypted data storage, audit logs, and compliance reporting for handling protected health information (PHI)
+            </p>
+          </div>
           <div>
             <h4 className="font-semibold text-sm mb-1">Session Recording Playback</h4>
             <p className="text-sm text-gray-700">

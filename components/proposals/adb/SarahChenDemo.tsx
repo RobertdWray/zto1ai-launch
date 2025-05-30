@@ -72,9 +72,6 @@ export function SarahChenDemo() {
                 in the training system. You&apos;ll play the role of a doctor speaking with Sarah Chen, 
                 an AI patient with moderate to severe plaque psoriasis.
               </p>
-              <p className="text-sm text-amber-700 font-medium">
-                This is NOT a help chatbot – it&apos;s an example of the actual training experience.
-              </p>
             </div>
             
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">

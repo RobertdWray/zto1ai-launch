@@ -115,13 +115,13 @@ AI-POWERED PATIENT SIMULATION SYSTEM AGREEMENT
 
 This Agreement is entered into as of ${today} ("Effective Date") between:
 
-Zero to One AI, Inc. ("Zero to One AI"), a Delaware corporation, and
+Innovative Technology Consulting Corporation ("Consultant"), doing business as Zero to One AI, located at 2415 Foster Ave, Baltimore, MD 21224, and
 
 ${formData.company || '[Company Name]'} ("Client" or "ABD")
 
 1. SERVICES AND DELIVERABLES
 
-Zero to One AI agrees to develop and deliver an AI-powered patient simulation system specifically designed for dermatology training, including:
+Consultant agrees to develop and deliver an AI-powered patient simulation system specifically designed for dermatology training, including:
 
 Core System Components:
 • Two (2) fully developed patient simulation scenarios
@@ -151,7 +151,7 @@ Payment is due as follows:
 
 4. DELIVERY TIMELINE
 
-Zero to One AI will deliver the complete system within 10 weeks of contract execution and initial payment receipt, following this schedule:
+Consultant will deliver the complete system within 10 weeks of contract execution and initial payment receipt, following this schedule:
 
 • Weeks 1-2: Discovery & Architecture Design
 • Weeks 3-5: Core Platform Development
@@ -161,11 +161,11 @@ Zero to One AI will deliver the complete system within 10 weeks of contract exec
 
 5. WARRANTY AND SUPPORT
 
-Zero to One AI warrants that the system will function as specified for one (1) year from delivery. Technical support is included for the first year. After year one, ongoing maintenance and support will be available under a separate agreement.
+Consultant warrants that the system will function as specified for one (1) year from delivery. Technical support is included for the first year. After year one, ongoing maintenance and support will be available under a separate agreement.
 
 6. INTELLECTUAL PROPERTY
 
-Zero to One AI retains all intellectual property rights to the core platform and AI technology. ABD will have a perpetual, non-exclusive license to use the system for its internal training purposes.
+Consultant retains all intellectual property rights to the core platform and AI technology. ABD will have a perpetual, non-exclusive license to use the system for its internal training purposes.
 
 7. CONFIDENTIALITY
 
@@ -173,7 +173,7 @@ Both parties agree to maintain the confidentiality of each other's proprietary i
 
 8. DATA SECURITY AND PRIVACY
 
-Zero to One AI will implement appropriate security measures to protect all data. Data retention periods will be configured according to ABD's requirements. ABD maintains full control over its data retention policies.
+Consultant will implement appropriate security measures to protect all data. Data retention periods will be configured according to ABD's requirements. ABD maintains full control over its data retention policies.
 
 9. TERMINATION
 
@@ -181,21 +181,22 @@ Either party may terminate this agreement with 30 days written notice. In case o
 
 10. LIMITATION OF LIABILITY
 
-Zero to One AI's total liability under this agreement shall not exceed the total amount paid by ABD under this agreement.
+Consultant's total liability under this agreement shall not exceed the total amount paid by ABD under this agreement.
 
 11. GENERAL PROVISIONS
 
-This agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, or agreements. This agreement shall be governed by the laws of Delaware.
+This agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, or agreements. This agreement shall be governed by the laws of Maryland.
 
 ACCEPTANCE
 
 By signing below, both parties agree to the terms and conditions set forth in this agreement.
 
-ZERO TO ONE AI, INC.
+INNOVATIVE TECHNOLOGY CONSULTING CORPORATION
 
 By: Robert Wray
-Title: Co-Founder & CEO
+Title: Owner
 Date: ${today}
+Address: 2415 Foster Ave, Baltimore, MD 21224
 
 ${formData.company ? formData.company.toUpperCase() : '[COMPANY NAME]'}
 

@@ -120,7 +120,7 @@ export function TechnicalSpecs() {
             <ul className="space-y-1 text-sm text-gray-700">
               <li>• System designed for specified metrics only; not suitable for large-scale enterprise deployment</li>
               <li>• Modern security practices implemented but system has not undergone penetration testing</li>
-              <li>• <strong className="text-red-600">NOT HIPAA compliant</strong> - should not be used with actual patient data</li>
+              <li>• <strong className="text-red-600">NOT HIPAA compliant</strong> - should not be used with actual patient data (HIPAA compliance available as an add-on)</li>
               <li>• All interactions are simulated; no real patient information should be entered</li>
             </ul>
           </div>
