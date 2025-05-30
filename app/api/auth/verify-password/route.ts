@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyPassword, createSession } from '@/lib/auth';
 import { PasswordVerificationSchema } from '@/lib/schemas/auth';
+import * as Sentry from '@sentry/nextjs';
 
 // Rate limiting map
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
@@ -72,6 +73,30 @@ export async function POST(request: NextRequest) {
     const isValid = await verifyPassword(proposalId, password);
     
     if (!isValid) {
+      // Log detailed error information to Sentry for troubleshooting
+      const envKey = `PROPOSAL_PASSWORD_${proposalId.toUpperCase()}`;
+      const expectedPassword = process.env[envKey];
+      
+      Sentry.captureException(new Error('Password verification failed'), {
+        tags: {
+          component: 'password-verification',
+          proposalId: proposalId,
+        },
+        contexts: {
+          verification: {
+            proposalId,
+            passwordLength: password.length,
+            passwordHash: password.substring(0, 3) + '***', // Only log first 3 chars for security
+            envKey,
+            hasExpectedPassword: !!expectedPassword,
+            expectedPasswordLength: expectedPassword?.length || 0,
+            expectedPasswordHash: expectedPassword?.substring(0, 3) + '***' || 'none',
+            environment: process.env.NODE_ENV,
+            ip: ip,
+          }
+        }
+      });
+      
       return NextResponse.json(
         { success: false, error: 'Invalid password' },
         { status: 401 }
@@ -89,6 +114,14 @@ export async function POST(request: NextRequest) {
     
   } catch (error) {
     console.error('Password verification error:', error);
+    
+    // Log the full error to Sentry
+    Sentry.captureException(error, {
+      tags: {
+        component: 'password-verification-error',
+      }
+    });
+    
     return NextResponse.json(
       { success: false, error: 'An error occurred' },
       { status: 500 }

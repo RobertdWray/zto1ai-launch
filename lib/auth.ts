@@ -1,5 +1,6 @@
 import { createCipheriv, createDecipheriv, randomBytes, scryptSync } from 'crypto';
 import { cookies } from 'next/headers';
+import * as Sentry from '@sentry/nextjs';
 
 const algorithm = 'aes-256-gcm';
 const SESSION_COOKIE_NAME = 'auth-session';
@@ -70,10 +71,55 @@ export async function verifyPassword(proposalId: string, password: string): Prom
   
   if (!correctPassword) {
     console.error(`No password configured for proposal: ${proposalId}`);
+    
+    // Log to Sentry when no password is configured
+    Sentry.captureMessage(`No password configured for proposal: ${proposalId}`, {
+      level: 'error',
+      tags: {
+        component: 'auth-verify-password',
+        proposalId: proposalId,
+        issue: 'missing-env-var'
+      },
+      contexts: {
+        environment: {
+          envKey,
+          availableEnvVars: Object.keys(process.env).filter(key => key.startsWith('PROPOSAL_PASSWORD_')),
+          nodeEnv: process.env.NODE_ENV,
+        }
+      }
+    });
+    
     return false;
   }
   
-  return password === correctPassword;
+  const isMatch = password === correctPassword;
+  
+  // Log password verification attempts to Sentry for debugging
+  if (!isMatch) {
+    Sentry.captureMessage('Password mismatch in verifyPassword function', {
+      level: 'warning',
+      tags: {
+        component: 'auth-verify-password',
+        proposalId: proposalId,
+        issue: 'password-mismatch'
+      },
+      contexts: {
+        verification: {
+          envKey,
+          inputPasswordLength: password.length,
+          inputPasswordFirst3: password.substring(0, 3) + '***',
+          expectedPasswordLength: correctPassword.length,
+          expectedPasswordFirst3: correctPassword.substring(0, 3) + '***',
+          passwordsEqual: password === correctPassword,
+          inputPasswordTrimmed: password.trim(),
+          expectedPasswordTrimmed: correctPassword.trim(),
+          trimmedEqual: password.trim() === correctPassword.trim(),
+        }
+      }
+    });
+  }
+  
+  return isMatch;
 }
 
 export async function createSession(proposalId: string) {
