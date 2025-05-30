@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { useConversation } from '@elevenlabs/react';
+import * as Sentry from '@sentry/nextjs';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -85,7 +86,36 @@ export function SarahVoiceConversation({
       setStartTime(new Date());
     } catch (error) {
       console.error('Error starting conversation:', error);
-      alert('Failed to start conversation. Please check microphone permissions.');
+      
+      // Capture error in Sentry
+      Sentry.captureException(error, {
+        tags: {
+          component: 'SarahVoiceConversation',
+          action: 'startConversation',
+          feature: 'voice-conversation',
+        },
+        contexts: {
+          conversation: {
+            hasSignedUrl: typeof getSignedUrl === 'function',
+            conversationStatus: conversation.status,
+          }
+        }
+      });
+      
+      // Provide more specific error messages
+      if (error instanceof Error) {
+        if (error.message.includes('Failed to get signed URL')) {
+          alert('Failed to start conversation. Service temporarily unavailable. Please try again later.');
+        } else if (error.message.includes('Permission denied')) {
+          alert('Failed to start conversation. Please check microphone permissions.');
+        } else if (error.message.includes('NotFoundError') || error.message.includes('DevicesNotFoundError')) {
+          alert('Failed to start conversation. No microphone found. Please check your audio devices.');
+        } else {
+          alert(`Failed to start conversation: ${error.message}`);
+        }
+      } else {
+        alert('Failed to start conversation. Please check microphone permissions.');
+      }
     }
   }, [conversation, getSignedUrl]);
 
