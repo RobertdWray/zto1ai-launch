@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@elevenlabs/react": "^0.1.5",
+    "@elevenlabs/react": "^0.1.6",
     "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-checkbox": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.14",
@@ -27,6 +27,7 @@
     "pdf-lib": "^1.17.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "sonner": "^2.0.4",
     "tailwind-merge": "^2.5.5",
     "zod": "^3.25.42"
   },

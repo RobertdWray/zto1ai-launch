@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { Toaster } from 'sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -48,6 +49,13 @@ export default function RootLayout({
     <html lang="en" className={inter.className}>
       <body className="min-h-screen bg-white antialiased">
         {children}
+        <Toaster 
+          position="top-right"
+          richColors
+          closeButton
+          expand
+          visibleToasts={5}
+        />
       </body>
     </html>
   )

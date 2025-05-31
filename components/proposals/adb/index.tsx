@@ -13,7 +13,7 @@ import { Timeline } from './Timeline';
 import { SectionNav } from '@/components/proposal/SectionNav';
 import { ProposalLayout } from '@/components/proposal/ProposalLayout';
 import { FloatingCTA } from '@/components/proposal/FloatingCTA';
-import { CalendarBooking } from '@/components/proposal/CalendarBooking';
+import { CalendarBookingSimple } from '@/components/proposal/CalendarBookingSimple';
 
 const sections = [
   { id: 'summary', title: 'Executive Summary' },
@@ -108,7 +108,7 @@ export default function ADBProposal() {
       />
 
       {/* Calendar Booking Modal */}
-      <CalendarBooking
+      <CalendarBookingSimple
         isOpen={showCalendarBooking}
         onClose={handleCloseCalendar}
         proposalTitle="AI Patient Simulation System"

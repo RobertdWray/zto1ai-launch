@@ -1,15 +1,78 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, Calendar, Mail, Phone } from 'lucide-react';
+import { CheckCircle, Calendar, Download, Phone, Mail, AlertCircle } from 'lucide-react';
 import { ProposalLayout } from '@/components/proposal/ProposalLayout';
+
+// Add TypeScript declaration for the Google Calendar API
+declare global {
+  interface Window {
+    calendar?: {
+      schedulingButton: {
+        load: (config: {
+          url: string;
+          color: string;
+          label: string;
+          target: HTMLElement;
+        }) => void;
+      };
+    };
+  }
+}
 
 export default function ThankYouPage() {
   const params = useParams();
   const proposalId = params.proposalId as string;
+  const calendarContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (calendarContainerRef.current) {
+      // Clear any existing content
+      calendarContainerRef.current.innerHTML = '';
+      
+      // Add the Google Calendar styles
+      const linkElement = document.createElement('link');
+      linkElement.href = 'https://calendar.google.com/calendar/scheduling-button-script.css';
+      linkElement.rel = 'stylesheet';
+      document.head.appendChild(linkElement);
+
+      // Create a target div for the calendar button
+      const targetDiv = document.createElement('div');
+      targetDiv.className = 'google-calendar-button-container';
+      calendarContainerRef.current.appendChild(targetDiv);
+
+      // Load the Google Calendar script
+      const scriptElement = document.createElement('script');
+      scriptElement.src = 'https://calendar.google.com/calendar/scheduling-button-script.js';
+      scriptElement.async = true;
+      
+      scriptElement.onload = () => {
+        // Initialize the calendar button after script loads
+        if (window.calendar && window.calendar.schedulingButton) {
+          window.calendar.schedulingButton.load({
+            url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2D1BjhIsbIe41FjC29-jTg-YzHjDsWBj7a7dC_pJDZfBL6VgoYqZUx2IdpVfE3LLwzpYrLfU8K?gv=true',
+            color: '#039BE5',
+            label: 'Book your Launch Call',
+            target: targetDiv,
+          });
+        }
+      };
+
+      document.body.appendChild(scriptElement);
+
+      // Cleanup function
+      return () => {
+        // Remove the script when component unmounts
+        if (scriptElement.parentNode) {
+          scriptElement.parentNode.removeChild(scriptElement);
+        }
+      };
+    }
+  }, []);
 
   if (proposalId !== 'adb') {
     return (
@@ -103,11 +166,32 @@ export default function ThankYouPage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-6">
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600 mb-6">
                 Ready to get started? Schedule your kickoff meeting with our team to begin your AI journey.
               </p>
-              <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-                <p className="text-gray-500">Google Calendar booking widget will be embedded here</p>
+              
+              {/* Google Calendar Widget Container */}
+              <div 
+                ref={calendarContainerRef}
+                className="flex justify-center items-center min-h-[100px] mb-6"
+              >
+                {/* Google Calendar button will be injected here */}
+              </div>
+
+              {/* Instructions */}
+              <div className="p-4 bg-blue-50 rounded-lg">
+                <div className="flex items-start gap-2">
+                  <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                  <div className="text-sm text-blue-900">
+                    <p className="font-medium mb-1">How to Book:</p>
+                    <ol className="list-decimal list-inside space-y-1 text-blue-800">
+                      <li>Click "Book your Launch Call" above</li>
+                      <li>Select your preferred date and time</li>
+                      <li>Enter your contact information</li>
+                      <li>You'll receive a calendar invite immediately</li>
+                    </ol>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>

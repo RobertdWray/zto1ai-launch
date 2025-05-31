@@ -1,0 +1,22 @@
+# Robots.txt for launch.zto1ai.com
+# This file tells search engines which parts of the site they can access
+
+# Allow legitimate search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+# Block all other bots from sensitive areas
+User-agent: *
+Disallow: /api/
+Disallow: /proposal/
+Disallow: /_next/
+Disallow: /*.json$
+Disallow: /*?pw=*
+
+# Sitemap location (if you have one)
+# Sitemap: https://launch.zto1ai.com/sitemap.xml 
