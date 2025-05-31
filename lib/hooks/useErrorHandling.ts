@@ -25,7 +25,7 @@ export function useErrorHandling() {
     fn: (...args: Args) => Promise<T>,
     options: ErrorHandlingOptions<T>
   ) => {
-    return useCallback(async (...args: Args): Promise<T> => {
+    return async (...args: Args): Promise<T> => {
       const { 
         operation, 
         context = {}, 
@@ -94,7 +94,7 @@ export function useErrorHandling() {
           finallyCallback();
         }
       }
-    }, [fn, options]);
+    };
   };
 
   return { withErrorHandling };

@@ -185,10 +185,10 @@ export default function ThankYouPage() {
                   <div className="text-sm text-blue-900">
                     <p className="font-medium mb-1">How to Book:</p>
                     <ol className="list-decimal list-inside space-y-1 text-blue-800">
-                      <li>Click "Book your Launch Call" above</li>
-                      <li>Select your preferred date and time</li>
-                      <li>Enter your contact information</li>
-                      <li>You'll receive a calendar invite immediately</li>
+                                              <li>Click &quot;Book your Launch Call&quot; above</li>
+                        <li>Select your preferred date and time</li>
+                        <li>Enter your contact information</li>
+                        <li>You&apos;ll receive a calendar invite immediately</li>
                     </ol>
                   </div>
                 </div>

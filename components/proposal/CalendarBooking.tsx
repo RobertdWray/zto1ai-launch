@@ -148,10 +148,10 @@ export function CalendarBooking({ isOpen, onClose, proposalTitle = "Your AI Proj
                     <div className="text-sm text-blue-900">
                       <p className="font-medium mb-1">Booking Process:</p>
                       <ol className="list-decimal list-inside space-y-1 text-blue-800">
-                        <li>Click "Book your Launch Call" above</li>
+                        <li>Click &quot;Book your Launch Call&quot; above</li>
                         <li>Choose your preferred time slot</li>
                         <li>Enter your contact details</li>
-                        <li>You'll receive a calendar invite via email</li>
+                        <li>You&apos;ll receive a calendar invite via email</li>
                       </ol>
                     </div>
                   </div>
